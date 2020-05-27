@@ -56,10 +56,12 @@
 /*****************************************************************************
  *                       File Ownership                                         *
  *****************************************************************************/
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__APPLE__)
 #  define CF_SYSTEM_GROUP "wheel"
-#elif defined(__Solaris__)
+#elif defined(__sun__) || defined(__hpux__)
 #  define CF_SYSTEM_GROUP "sys"
+#elif defined(_AIX)
+#  define CF_SYSTEM_GROUP "system"
 #else
 #  define CF_SYSTEM_GROUP "root"
 #endif

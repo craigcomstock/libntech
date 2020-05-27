@@ -106,7 +106,8 @@ check_PROGRAMS = \
 	threaded_stack_test \
 	version_comparison_test \
 	ring_buffer_test \
-	libcompat_test
+	libcompat_test \
+	users_groups_test
 
 if WITH_OPENSSL
 check_PROGRAMS += \
@@ -205,3 +206,8 @@ threaded_stack_test_SOURCES = threaded_stack_test.c
 
 file_lock_test_SOURCES = file_lock_test.c
 file_lock_test_LDADD = ../../libutils/libutils.la
+
+users_groups_test_SOURCES = users_groups_test.c \
+        ../../libutils/definitions.h \
+	../../libutils/users_groups.h \
+	../../libutils/users_groups.c
