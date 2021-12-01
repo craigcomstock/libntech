@@ -309,6 +309,8 @@ int PassOpenFile_Get(int uds, char **text)
 
 #else /* Unix: */
 
+// for nuttx
+#define HAVE_MSGHDR_ACCRIGHTS 1
 #ifdef HAVE_MSGHDR_MSG_CONTROL
 /* This is the modern interface.  It should be present in most modern
  * Unix systems (conforming to the Single UNIX Specification).

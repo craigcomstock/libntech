@@ -32,6 +32,8 @@
  * including system headers (such as _FILE_OFFSET_BITS).
  */
 
+// workaround for nuttx not using autotools really
+#define HAVE_CONFIG_H 1
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif

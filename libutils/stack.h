@@ -26,6 +26,8 @@
 #define CFENGINE_STACK_H
 
 #include <stdlib.h> // size_t
+// for nutt
+#include <stdbool.h>
 
 typedef struct Stack_ Stack;
 
