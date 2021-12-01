@@ -38,8 +38,9 @@ typedef struct Writer_ Writer;
 #include <stdio.h> // FILE
 #include <stdbool.h> // bool
 #include <stdarg.h> // va_list
-#include <../libcompat/getopt.h>
 #include <compiler.h>
+// for nuttx
+#include <getopt.h>
 
 Writer *FileWriter(FILE *);
 Writer *StringWriter(void);

@@ -90,9 +90,6 @@
 /* We now require a pthreads implementation. */
 #include <pthread.h>
 
-#ifndef _GETOPT_H
-# include <../libcompat/getopt.h>
-#endif
 
 #ifdef HAVE_STDLIB_H
 # include <stdlib.h>
@@ -153,7 +150,7 @@ struct utsname
 #include <stdbool.h>
 
 #include <errno.h>
-
+#define HAVE_DIRENT_H
 #ifdef HAVE_DIRENT_H
 # include <dirent.h>
 #else
@@ -374,11 +371,6 @@ union mpinfou
 # include <netinet/tcp.h>
 # include <arpa/inet.h>
 # include <netdb.h>
-# if !defined __linux__ && !defined _WIN32
-#  include <sys/protosw.h>
-#  undef sgi
-#  include <net/route.h>
-# endif
 #endif
 
 #ifdef __linux__
@@ -412,11 +404,11 @@ union mpinfou
 #endif
 
 #ifndef HAVE_CLOCKID_T
-typedef int clockid_t;
+typedef uint8_t clockid_t;
 #endif
 
 #ifndef HAVE_SOCKLEN_T
-typedef int socklen_t;
+typedef unsigned int socklen_t;
 #endif
 
 # ifndef _SC_THREAD_STACK_MIN
@@ -603,7 +595,7 @@ void *memmem(const void *haystack, size_t haystacklen,
              const void *needle, size_t needlelen);
 #endif
 #if !HAVE_DECL_STRERROR
-char *strerror(int err);
+FAR const char *strerror(int err);
 #endif
 #if !HAVE_DECL_UNSETENV
 int unsetenv(const char *name);
