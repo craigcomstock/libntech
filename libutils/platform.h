@@ -749,6 +749,8 @@ double log2(double x);
 /*******************************************************************/
 /*  Windows                                                        */
 /*******************************************************************/
+// for nuttx
+#define MAXHOSTNAMELEN 256
 
 #ifdef __MINGW32__
 # define MAXHOSTNAMELEN 256     // always adequate: http://msdn.microsoft.com/en-us/library/ms738527(VS.85).aspx
