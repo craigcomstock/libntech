@@ -55,6 +55,7 @@ typedef struct LogEntry_
 
 static void LoggingInitializeOnce(void)
 {
+printf("LoggingInitializeOnce(), log_context_key=%lu\n", log_context_key);
     if (pthread_key_create(&log_context_key, &free) != 0)
     {
         /* There is no way to signal error out of pthread_once callback.
@@ -68,8 +69,13 @@ static void LoggingInitializeOnce(void)
 
 LoggingContext *GetCurrentThreadContext(void)
 {
+uint64_t tid;
+pthread_threadid_np(NULL, &tid);
+printf("GetCurrentThreadContext(), tid=%llu\n", tid);
+printf("log_context_key=%lu\n", log_context_key);
     pthread_once(&log_context_init_once, &LoggingInitializeOnce);
     LoggingContext *lctx = pthread_getspecific(log_context_key);
+printf("GetCurrentThreadContext(), lctx=%p\n", lctx);
     if (lctx == NULL)
     {
         lctx = xcalloc(1, sizeof(LoggingContext));
@@ -79,6 +85,7 @@ LoggingContext *GetCurrentThreadContext(void)
         lctx->report_level = global_level;
         pthread_setspecific(log_context_key, lctx);
     }
+printf("GetCurrentThreadContext(), lctx=%p, pctx=%p\n", lctx, lctx->pctx);
     return lctx;
 }
 
@@ -86,6 +93,7 @@ void LoggingFreeCurrentThreadContext(void)
 {
     pthread_once(&log_context_init_once, &LoggingInitializeOnce);
     LoggingContext *lctx = pthread_getspecific(log_context_key);
+printf("LoggingFreeCurrentThreadContext(), lctx=%p\n", lctx);
     if (lctx == NULL)
     {
         return;
