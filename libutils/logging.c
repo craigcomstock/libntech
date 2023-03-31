@@ -41,6 +41,7 @@ static LogLevel global_system_log_level = LOG_LEVEL_NOTHING; /* default value th
 
 static pthread_once_t log_context_init_once = PTHREAD_ONCE_INIT; /* GLOBAL_T */
 static pthread_key_t log_context_key; /* GLOBAL_T, initialized by pthread_key_create */
+static pthread_key_t backup_key; // just to see if it gets changed?
 
 static Seq *log_buffer = NULL;
 static bool logging_into_buffer = false;
@@ -65,6 +66,7 @@ printf("LoggingInitializeOnce(), log_context_key=%lu\n", log_context_key);
         fprintf(stderr, "Unable to initialize logging subsystem\n");
         DoCleanupAndExit(255);
     }
+    backup_key = log_context_key;
 }
 
 LoggingContext *GetCurrentThreadContext(void)
@@ -73,6 +75,8 @@ uint64_t tid;
 pthread_threadid_np(NULL, &tid);
 printf("GetCurrentThreadContext(), tid=%llu\n", tid);
 printf("log_context_key=%lu\n", log_context_key);
+printf("backup_key=%lu\n", backup_key);
+printf("log_context_key is at %p, backup_key is at %p\n", &log_context_key, &backup_key);
     pthread_once(&log_context_init_once, &LoggingInitializeOnce);
     LoggingContext *lctx = pthread_getspecific(log_context_key);
 printf("GetCurrentThreadContext(), lctx=%p\n", lctx);
