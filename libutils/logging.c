@@ -57,6 +57,7 @@ typedef struct LogEntry_
 static void LoggingInitializeOnce(void)
 {
 printf("LoggingInitializeOnce(), log_context_key=%lu\n", log_context_key);
+printf("LoggingInitializeOnce(), log_context_key at %p\n", log_context_key);
     if (pthread_key_create(&log_context_key, &free) != 0)
     {
         /* There is no way to signal error out of pthread_once callback.
