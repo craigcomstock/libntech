@@ -39,7 +39,7 @@ pcre *CompileRegex(const char *regex)
     const char *errorstr;
     int erroffset;
 
-    pcre *rx = pcre_compile(regex, PCRE_MULTILINE | PCRE_DOTALL,
+    pcre2 *rx = pcre_compile(regex, PCRE_MULTILINE | PCRE_DOTALL,
                             &errorstr, &erroffset, NULL);
 
     if (!rx)

@@ -64,8 +64,7 @@ typedef struct {
 /* A PCRE_WRAP job */
 
 typedef struct PCRE_WRAP_JOB {
-    pcre *pattern;                            /* The compiled pcre pattern */
-    pcre_extra *hints;                        /* The pcre hints for the pattern */
+    pcre2_code *pattern;                            /* The compiled pcre pattern */
     int options;                              /* The pcre options (numeric) */
     int flags;                                /* The pcre_wrap and user flags (see "Flags" above) */
     pcre_wrap_substitute *substitute;              /* The compiled pcre_wrap substitute */

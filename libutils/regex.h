@@ -35,17 +35,17 @@
 #define CFENGINE_REGEX_WHITESPACE_IN_CONTEXTS ".*[_A-Za-z0-9][ \\t]+[_A-Za-z0-9].*"
 
 /* Try to use CompileRegex() and StringMatchWithPrecompiledRegex(). */
-pcre *CompileRegex(const char *regex);
+pcre2_code *CompileRegex(const char *regex);
 bool StringMatch(const char *regex, const char *str, size_t *start, size_t *end);
-bool StringMatchWithPrecompiledRegex(pcre *regex, const char *str,
+bool StringMatchWithPrecompiledRegex(pcre2_code *regex, const char *str,
                                      size_t *start, size_t *end);
 bool StringMatchFull(const char *regex, const char *str);
-bool StringMatchFullWithPrecompiledRegex(pcre *regex, const char *str);
+bool StringMatchFullWithPrecompiledRegex(pcre2_code *regex, const char *str);
 Seq *StringMatchCaptures(const char *regex, const char *str, const bool return_names);
-Seq *StringMatchCapturesWithPrecompiledRegex(const pcre *pattern, const char *str, const bool return_names);
+Seq *StringMatchCapturesWithPrecompiledRegex(const pcre2_code *pattern, const char *str, const bool return_names);
 bool CompareStringOrRegex(const char *value, const char *compareTo, bool regex);
 
 /* Does not free rx! */
-bool RegexPartialMatch(const pcre *rx, const char *teststring);
+bool RegexPartialMatch(const pcre2_code *rx, const char *teststring);
 
 #endif  /* CFENGINE_REGEX_H */
