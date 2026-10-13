@@ -269,6 +269,9 @@ AS_IF(
    && test "x$have_brew" = "xyes" && test -d $(brew --prefix openssl)/],
   [with_openssl=$(brew --prefix openssl)])
 
+if command -v port; then
+  with_openssl=/opt/local
+fi
 if test "x$with_openssl" != "xno"; then
   CF3_WITH_LIBRARY(openssl, [
     AC_CHECK_LIB(crypto, RSA_generate_key_ex, [], [])
@@ -312,6 +315,10 @@ dnl PCRE2
 AC_ARG_WITH([pcre], [AS_HELP_STRING([--with-pcre=no], [Disable PCRE (only for backwards compatibility)])], [], [with_pcre=default])
 if test "x$with_pcre" != "xdefault" && test "x$with_pcre" != "xno"; then
   AC_MSG_ERROR([PCRE no longer supported, use PCRE2]);
+fi
+
+if command -v port; then
+  with_pcre2=/opt/local
 fi
 
 AC_ARG_WITH([pcre2], [AS_HELP_STRING([--with-pcre2[[=PATH]]], [Specify PCRE2 path])], [], [with_pcre2=yes])
